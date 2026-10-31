@@ -1,0 +1,10 @@
+﻿# Kubernetes / kind
+.kube/
+*.kubeconfig
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
