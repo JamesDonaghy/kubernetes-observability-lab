@@ -1,0 +1,22 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: healthcheck-api
+  namespace: healthcheck
+  labels:
+    app: healthcheck-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: healthcheck-api
+  template:
+    metadata:
+      labels:
+        app: healthcheck-api
+    spec:
+      containers:
+      - name: healthcheck-api
+        image: healthcheck-api:latest
+        ports:
+        - containerPort: 5000
