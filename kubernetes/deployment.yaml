@@ -18,5 +18,6 @@ spec:
       containers:
       - name: healthcheck-api
         image: healthcheck-api:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
