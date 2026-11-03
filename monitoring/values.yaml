@@ -1,0 +1,73 @@
+﻿# Lightweight values for kind / local lab
+grafana:
+  adminPassword: admin
+  persistence:
+    enabled: false
+  resources:
+    requests:
+      cpu: 50m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+prometheus:
+  prometheusSpec:
+    retention: 24h
+    retentionSize: 2GB
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 1Gi
+    storageSpec: {}          # no persistent volume for local lab
+
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 100m
+        memory: 64Mi
+
+# Reduce noise on a single-node kind cluster
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+
+prometheusOperator:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+kube-state-metrics:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 64Mi
+
+nodeExporter:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 100m
+      memory: 32Mi
