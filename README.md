@@ -94,4 +94,3 @@ kind delete cluster --name observability-lab
 
 Every push and pull request runs `kubeconform` against the manifests in `kubernetes/`.  
 Invalid YAML fails the workflow.
-```
