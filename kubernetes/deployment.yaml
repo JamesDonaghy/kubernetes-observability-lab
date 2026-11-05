@@ -6,7 +6,7 @@ metadata:
   labels:
     app: healthcheck-api
 spec:
-  replicas: "three" #invalid value to test
+  replicas: 1
   selector:
     matchLabels:
       app: healthcheck-api
