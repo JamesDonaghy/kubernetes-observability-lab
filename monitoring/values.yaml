@@ -22,7 +22,18 @@ prometheus:
       limits:
         cpu: 500m
         memory: 1Gi
-    storageSpec: {}          # no persistent volume for local lab
+    storageSpec: {}
+
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector: {}
+    serviceMonitorSelector: {}
+
+    additionalScrapeConfigs:
+      - job_name: "healthcheck-api"
+        scrape_interval: 15s
+        metrics_path: /metrics
+        static_configs:
+          - targets: ["healthcheck-api.healthcheck.svc.cluster.local:80"]
 
 alertmanager:
   enabled: true
