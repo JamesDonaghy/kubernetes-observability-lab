@@ -1,0 +1,35 @@
+﻿apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: healthcheck-api-alerts
+  namespace: healthcheck
+  labels:
+    release: monitoring          # required so the Prometheus Operator picks it up
+spec:
+  groups:
+    - name: healthcheck-api
+      rules:
+        - alert: HealthcheckAppDown
+          expr: |
+            up{job="healthcheck-api"} == 0
+            or
+            absent(up{job="healthcheck-api"})
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Health-check API is down"
+            description: "The healthcheck-api job has been unreachable for more than 2 minutes."
+
+        - alert: HealthcheckHighErrorRate
+          expr: |
+            sum(rate(http_requests_total{job="healthcheck-api", status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total{job="healthcheck-api"}[5m]))
+            > 0.05
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High error rate on Health-check API"
+            description: "More than 5% of requests are returning 5xx status codes."
