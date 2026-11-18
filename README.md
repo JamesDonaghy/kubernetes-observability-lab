@@ -114,13 +114,26 @@ healthcheck-api.healthcheck.svc.cluster.local:80/metrics
 ```
 every 15 seconds.
 
+## Alerting (V1.2)
+
+Two Prometheus alerts are defined for the health-check application:
+
+| Alert | Condition | Severity |
+|-------|-----------|----------|
+| `HealthcheckAppDown` | Scrape target is missing or down for > 2 minutes | critical |
+| `HealthcheckHighErrorRate` | > 5% of requests return 5xx for > 5 minutes | warning |
+
+The rules are defined in `kubernetes/prometheus-rules.yaml` and are automatically loaded by the Prometheus Operator.
+
+You can view their current state in the Prometheus UI under **Alerts**.
+
 ## Cleanup
 
 ```powershell
 kind delete cluster --name observability-lab
 ```
 
-## Limitations
+## Limitations (honest)
 
 - This is a single-node local cluster. It is excellent for learning but is **not** equivalent to operating a production multi-node cloud cluster.
 - No persistent storage, Ingress, or external load balancer is configured.
